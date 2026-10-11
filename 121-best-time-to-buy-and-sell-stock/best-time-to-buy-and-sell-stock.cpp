@@ -1,22 +1,15 @@
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        int left = 0;  // Buy pointer
-        int right = 1; // Sell pointer
+        int n = prices.size();
+
         int maxProfit = 0;
+        int minProfit = prices[0];
 
-        while (right < prices.size()) {
-            if (prices[left] < prices[right]) {
-                int profit = prices[right] - prices[left];
-                maxProfit = max(maxProfit, profit);
-            } 
-            else {
-                // Found a cheaper buying day
-                left = right;
-            }
-            right++;
+        for(int i = 1; i<n; i++){
+            maxProfit = max(maxProfit, prices[i] - minProfit);
+            minProfit = min(minProfit, prices[i]);
         }
-
         return maxProfit;
     }
 };
